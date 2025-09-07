@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "alembic>=1.16.5",
+    "bson>=0.5.10",
     "celery>=5.5.3",
     "chromadb>=1.0.20",
     "fastapi[standard]>=0.116.1",
@@ -13,8 +14,10 @@ dependencies = [
     "mistralai>=1.9.10",
     "openai>=1.106.1",
     "openai-agents>=0.2.11",
+    "psycopg2-binary>=2.9.10",
     "pydantic-settings>=2.10.1",
     "redis>=6.4.0",
+    "ruff>=0.12.12",
     "sqlmodel>=0.0.24",
     "uvicorn>=0.35.0",
 ]

@@ -20,3 +20,5 @@ class DatabaseSettings(BaseSettings):
         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}"
 
     model_config = SettingsConfigDict(env_file=".env", env_prefix="DB_", extra="ignore")
+    # Gunakan config bawah apabila terdapat DB_ di dalam .env sehingga hapus bagian env_prefix
+    # model_config = SettingsConfigDict(env_file=".env", extra="ignore")
