@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, UploadFile
 from sqlmodel import Session, select, desc
 from app.database.models import Resume
 from app.database.engine import db_session
+from app.services.resume.resume_tasks import process_resume
 
 resume_router = APIRouter(prefix="/resume", tags=["resume"])
 
@@ -34,5 +35,7 @@ async def upload_resume(
     os.makedirs("public/resumes", exist_ok=True)
     with open(file_path, "wb") as f:
         f.write(contents)
+
+    process_resume.delay(resume.id)
 
     return { "message": "Resume uploaded successfully", "id": resume.id }
