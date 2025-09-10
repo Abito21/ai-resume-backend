@@ -1,7 +1,10 @@
+from loguru import logger
+
 from app.celery import app
 from app.database.models import Resume, ResumeStatus
 from sqlmodel import Session, select
 from app.database.engine import engine
+from app.modules.vector import add_resume_to_vector_db
 from app.modules.ocr import extract_text_from_pdf
 from app.services.resume.resume_methods import extract_resume, summarize_resume
 
@@ -34,3 +37,8 @@ def process_resume(resume_id):
             resume.status = ResumeStatus.COMPLETED
             session.add(resume)
             session.commit()
+
+            logger.info("Adding resume to vector database")
+            add_resume_to_vector_db(resume_id, resume.category, summarized)
+
+            logger.info("Resume processing completed")

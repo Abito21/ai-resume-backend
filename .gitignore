@@ -9,3 +9,9 @@ wheels/
 # Virtual environments
 .venv
 .env
+
+# Local Database Vector
+/chroma_db
+
+# Local Public Data
+/public
