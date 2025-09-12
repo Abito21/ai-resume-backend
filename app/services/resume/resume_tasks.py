@@ -4,7 +4,7 @@ from sqlmodel import Session, select
 from app.celery import app
 from app.database.engine import engine
 from app.database.models import Resume, ResumeStatus
-from app.modules.ocrs import extract_text_from_pdf
+from app.modules.ocr import extract_text_from_pdf
 from app.modules.vector import add_resume_to_vector_db
 from app.services.resume.resume_methods import extract_resume, summarize_resume
 from app.utils.websocker_helper import publish_message
