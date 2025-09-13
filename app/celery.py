@@ -7,7 +7,7 @@ app = Celery(
 )
 
 from app.services.resume import resume_tasks  # noqa
-# from app.services.chatbot import chatbot_tasks  # noqa
+from app.services.chatbot import chatbot_tasks  # noqa
 
 
 app.autodiscover_tasks()
