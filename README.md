@@ -68,7 +68,7 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan proyek ini secara lokal.
 
 5.  **Jalankan Aplikasi:**
     ```bash
-    poetry run uvicorn main:app --reload
+    uv run uvicorn main:app --reload
     ```
     Aplikasi sekarang akan berjalan di `http://127.0.0.1:8000`.
 
