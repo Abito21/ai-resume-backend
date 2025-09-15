@@ -1,175 +1,121 @@
-# `AI Resume Backend API`
+# AI Resume Backend
 
-## Deskripsi Proyek
-
-Proyek ini adalah backend (server) yang dirancang untuk mendukung aplikasi pembuat resume yang ditenagai oleh kecerdasan buatan (AI). Proyek ini bertanggung jawab untuk memproses data pengguna, berinteraksi dengan model AI untuk analisis dan pembuatan konten, serta menyediakan API yang terstruktur untuk komunikasi dengan frontend.
-
-## Fitur Utama
-
--   **Pembuatan Konten Otomatis**: Memanfaatkan model AI untuk menghasilkan deskripsi pekerjaan, ringkasan profil, dan poin-poin prestasi yang relevan.
--   **API RESTful**: Menyediakan serangkaian endpoint API yang aman dan efisien untuk mengelola data resume.
--   **Validasi Data**: Memastikan data yang dikirim oleh pengguna sesuai dengan format yang dibutuhkan.
--   **Manajemen Resume**: Memungkinkan pengguna untuk menyimpan, memperbarui, dan menghapus resume mereka.
+Backend aplikasi untuk **AI Resume**. Bertugas menangani logika server, API, authetikasi, penyimpanan data, dan integrasi dengan AI.
 
 ---
 
-## Teknologi yang Digunakan
+## 🚀 Fitur Utama
 
-* **Bahasa Pemrograman**: Python
-* **Framework**: FastAPI
-* **Model AI**: Open AI
-* **Database**: PostgreSQL
-* **Alat Pengembangan**: Docker, UV
+- **Endpoints API Resume**  
+  Menyediakan endpoint untuk membuat, mengambil, memperbarui, dan menghapus resume melalui REST API.
 
----
+- **Integrasi AI untuk Generate Konten**  
+  Memanfaatkan model AI untuk membantu menghasilkan isi resume (misalnya ringkasan, pengalaman kerja, pendidikan) berdasarkan input pengguna.
 
-## Panduan Instalasi
+- **Autentikasi dan Keamanan**  
+  Fitur login / signup (jika ada), verifikasi token / session, validasi input untuk menghindari data yang tidak valid.
 
-Ikuti langkah-langkah di bawah ini untuk menjalankan proyek ini secara lokal.
+- **Penyimpanan Data**  
+  Menggunakan database (SQL atau NoSQL) untuk menyimpan data resume, pengguna, dan metadata lainnya.
 
-### Prasyarat
-
--   [Python 3.10+](https://www.python.org/downloads/)
--   [UV](https://docs.astral.sh/uv/) (untuk manajemen dependensi)
--   [Docker](https://www.docker.com/) (opsional, untuk menjalankan database)
--   [PostgreSQL](https://www.postgresql.org/)
-
-### Langkah-langkah
-
-1.  **Clone repositori:**
-    ```bash
-    git clone [https://github.com/Abito21/ai-resume-backend.git](https://github.com/Abito21/ai-resume-backend.git)
-    cd ai-resume-backend
-    ```
-
-2.  **Instal dependensi:**
-    ```bash
-    uv install
-    ```
-
-3.  **Konfigurasi Variabel Lingkungan:**
-    Buat file `.env` di direktori root dan tambahkan konfigurasi berikut. Ganti nilai-nilai dalam `<...>` dengan informasi Anda.
-
-    ```env
-    # Database
-    DB_USER=your_username
-    DB_PASS=your_password
-    DB_HOST=localhost
-    DB_PORT=port
-    DB_NAME=ai_resume_db
-    ```
-
-4.  **Jalankan Database (dengan Docker):**
-    Jika Anda menggunakan Docker, Anda bisa menjalankan database dengan perintah berikut:
-    ```bash
-    docker-compose up -d db
-    ```
-    atau, jalankan secara manual jika Anda telah menginstalnya.
-
-5.  **Jalankan Aplikasi:**
-    ```bash
-    uv run uvicorn main:app --reload
-    ```
-    Aplikasi sekarang akan berjalan di `http://127.0.0.1:8000`.
+- **Error Handling & Validasi Backend**  
+  Penanganan error yang baik, validasi input di level server untuk keamanan dan konsistensi data.
 
 ---
 
-## Dokumentasi API
+## 🛠️ Teknologi
 
-Proyek ini menggunakan **FastAPI**, yang secara otomatis menghasilkan dokumentasi API interaktif menggunakan **Swagger UI**. Setelah aplikasi berjalan, Anda dapat mengakses dokumentasi di:
-`http://127.0.0.1:8000/docs`
-
-Dokumentasi ini mencakup daftar endpoint yang tersedia, metode HTTP yang digunakan, format request/response, dan kemampuan untuk mencoba setiap endpoint secara langsung.
+| Komponen        | Keterangan                            |
+|------------------|-----------------------------------------|
+| Bahasa / Runtime | Node.js (atau sesuai project kamu)     |
+| Framework        | Express / Fastify / NestJS (atau lain) |
+| Database         | PostgreSQL / MongoDB / MySQL / dll     |
+| Otentikasi       | JWT / Session / OAuth (tergantung)     |
+| Validasi input   | Library seperti Joi, Zod, atau class-validator |
+| Dokumentasi API  | Swagger / OpenAPI (jika digunakan)     |
 
 ---
-## Penjelasan API & Integrasi dengan Frontend
 
-Proyek ini menyediakan API RESTful yang dapat diakses dari frontend (aplikasi web atau mobile) untuk mengelola data resume. Dokumentasi API interaktif tersedia di **`http://127.0.0.1:8000/docs`** setelah server berjalan.
+## 📂 Struktur Direktori
 
-### Cara Akses dari Frontend
+```
+ai-resume-backend/
+├── src/
+│ ├── controllers/ # Untuk menangani request dan response
+│ ├── routes/ # Definisi endpoint / route
+│ ├── services/ # Logika bisnis terpisah dari controller
+│ ├── models/ # Skema database / ORM / schema
+│ ├── middlewares/ # Middlewares seperti autentikasi, error handling
+│ ├── utils/ # Helper / utilitas
+│ └── config/ # Konfigurasi seperti DB, environment
+├── .env # Konfigurasi environment variabel
+├── package.json
+├── tsconfig.json (jika pake TypeScript)
+├── README.md
+└── ...
+```
 
-Aplikasi frontend dapat berkomunikasi dengan backend melalui permintaan HTTP (GET, POST, PUT, DELETE) menggunakan pustaka seperti `fetch` atau `axios` di JavaScript. Berikut adalah contoh cara mengakses setiap endpoint:
 
-#### 1. Membuat Resume Baru
--   **Endpoint**: `POST /api/v1/resumes/`
--   **Tujuan**: Mengirimkan data resume baru untuk disimpan.
--   **Contoh Kode**:
-    ```javascript
-    const resumeData = {
-        "name": "Budi Santoso",
-        "email": "budi@example.com",
-        "experience": [{"title": "Software Engineer"}],
-        // ... data lainnya
-    };
+---
 
-    fetch('[http://127.0.0.1:8000/api/v1/resumes/](http://127.0.0.1:8000/api/v1/resumes/)', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(resumeData),
-    })
-    .then(response => response.json())
-    .then(data => console.log('Resume berhasil dibuat:', data))
-    .catch(error => console.error('Error:', error));
-    ```
+## ⚙️ Instalasi & Menjalankan
 
-#### 2. Mendapatkan Semua Resume
--   **Endpoint**: `GET /api/v1/resumes/`
--   **Tujuan**: Mengambil daftar semua resume yang tersimpan.
--   **Contoh Kode**:
-    ```javascript
-    fetch('[http://127.0.0.1:8000/api/v1/resumes/](http://127.0.0.1:8000/api/v1/resumes/)')
-        .then(response => response.json())
-        .then(data => console.log('Daftar resume:', data))
-        .catch(error => console.error('Error:', error));
-    ```
+Berikut langkah-langkah menjalankan server secara lokal:
 
-#### 3. Mendapatkan Detail Resume
--   **Endpoint**: `GET /api/v1/resumes/{resume_id}`
--   **Tujuan**: Mengambil detail spesifik dari satu resume berdasarkan ID-nya.
--   **Contoh Kode**:
-    ```javascript
-    const resumeId = "123e4567-e89b-12d3-a456-426614174000"; // Contoh UUID
-    fetch(`http://127.0.0.1:8000/api/v1/resumes/${resumeId}`)
-        .then(response => response.json())
-        .then(data => console.log('Detail resume:', data))
-        .catch(error => console.error('Error:', error));
-    ```
+1. Clone repo backend  
+   ```bash
+   git clone <URL-repo-backend>
+   cd ai-resume-backend
+   ```
 
-#### 4. Memperbarui Resume
--   **Endpoint**: `PUT /api/v1/resumes/{resume_id}`
--   **Tujuan**: Memperbarui data resume yang sudah ada.
--   **Contoh Kode**:
-    ```javascript
-    const resumeId = "123e4567-e89b-12d3-a456-426614174000";
-    const updatedData = {"name": "Budi Santoso (Updated)"};
+2. Install dependencies
+   ```bash
+   npm install
+   # atau
+   yarn
+   # atau
+   pnpm install
+   ```
 
-    fetch(`http://127.0.0.1:8000/api/v1/resumes/${resumeId}`, {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(updatedData),
-    })
-    .then(response => response.json())
-    .then(data => console.log('Resume berhasil diperbarui:', data))
-    .catch(error => console.error('Error:', error));
-    ```
+3. Konfigurasi environment
 
-#### 5. Menghapus Resume
--   **Endpoint**: `DELETE /api/v1/resumes/{resume_id}`
--   **Tujuan**: Menghapus resume dari database.
--   **Contoh Kode**:
-    ```javascript
-    const resumeId = "123e4567-e89b-12d3-a456-426614174000";
-    fetch(`http://127.0.0.1:8000/api/v1/resumes/${resumeId}`, {
-        method: 'DELETE',
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Resume berhasil dihapus.');
-        } else {
-            console.error('Gagal menghapus resume.');
-        }
-    })
-    .catch(error => console.error('Error:', error));
-    ```
+   Buat file .env (jika belum ada), dengan variabel seperti:
+
+   ```bash
+   PORT=5000
+   DATABASE_URL=<url-ke-database-anda>
+   JWT_SECRET=<rahasia-token>
+   AI_API_KEY=<apikey-pakai-ai-service>
+   ```
+
+   Sesuaikan dengan kebutuhan proyekmu.
+
+4. Jalankan server development
+
+   ```bash
+   npm run dev
+   # atau
+   yarn dev
+   ```
+
+5. Build / production
+
+   ```bash
+   npm run build
+   # lalu
+   npm start
+   ```
+
+---
+
+## 🔧 Konfigurasi
+
+- Variabel environment .env untuk konfigurasi port, database, dan secret keys
+
+- Setup database dan koneksi di config/
+
+- Middleware untuk autentikasi, validasi, dan error handling
+
+- Logging (opsional) untuk debugging dan monitoring
 
 ---
