@@ -29,10 +29,10 @@ Backend aplikasi untuk **AI Resume**. Bertugas menangani logika server, API, aut
 |------------------|-----------------------------------------|
 | Bahasa / Runtime | Node.js (atau sesuai project kamu)     |
 | Framework        | Express / Fastify / NestJS (atau lain) |
-| Database         | PostgreSQL / MongoDB / MySQL / dll     |
+| Database         | PostgreSQL & Redis                     |
 | Otentikasi       | JWT / Session / OAuth (tergantung)     |
 | Validasi input   | Library seperti Joi, Zod, atau class-validator |
-| Dokumentasi API  | Swagger / OpenAPI (jika digunakan)     |
+| Dokumentasi API  | Swagger / OpenAPI / FastAPI            |
 
 ---
 
